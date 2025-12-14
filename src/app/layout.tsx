@@ -7,6 +7,20 @@ import Navbar from "@/components/Navbar";
 export const metadata: Metadata = {
   title: "Postify",
   description: "Post ur thoughts",
+  icons: {
+    icon: [
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: "/icon-light.png",
+        href: "/icon-light.png",
+      },
+      {
+        media: "(prefers-color-scheme: light)",
+        url: "/icon-dark.png",
+        href: "/icon-dark.png",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
