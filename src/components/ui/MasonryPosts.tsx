@@ -308,7 +308,7 @@ const MasonryPosts: React.FC<MasonryProps> = ({
     <div ref={containerRef} className="relative w-full h-full">
       {grid.map((item: any) => {
         const displayName = item.author?.name ?? item.author?.email;
-        const username = item.author?.email?.split("@")[0];
+        const username = item.author?.email;
         const avatar = item.author?.image ?? undefined;
         const contentText = item.content ?? "";
 

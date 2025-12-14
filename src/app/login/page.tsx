@@ -38,7 +38,7 @@ const page = () => {
       setEmail("");
       setName("");
       setPassword("");
-
+      setLogin(true);
       toast.success("User created successfully");
       router.refresh();
     } catch (error) {
@@ -93,9 +93,9 @@ const page = () => {
         // ignore storage errors
         console.warn("could not persist user:", e);
       }
-
       toast.success("Logged in successfully");
       router.refresh();
+      router.push("/");
     } catch (err) {
       console.error("error logging in:", err);
     } finally {
@@ -158,12 +158,14 @@ const page = () => {
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
+                  {login && (
+                    <a
+                      href="#"
+                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    >
+                      Forgot your password?
+                    </a>
+                  )}
                 </div>
                 <Input
                   id="password"

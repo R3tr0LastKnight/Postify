@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Marquee } from "./ui/marquee";
+import { useMemo } from "react";
 
 type PostJSON = {
   id: string;
@@ -30,11 +31,7 @@ interface UserListProps {
 }
 
 const UserList = ({ initialUsers }: UserListProps) => {
-  // split rows (use ceil so first row is slightly bigger when odd)
-  const mid = Math.ceil(initialUsers.length / 2);
-  const firstRow = initialUsers.slice(0, mid);
-  const secondRow = initialUsers.slice(mid);
-
+  const shuffledUsers = initialUsers;
   // Render each user card taking the real user shape
   // NOTE: make the root element inline-block so marquee can scroll them horizontally
   const ReviewCard = ({ user }: { user: UserWithCounts }) => {
@@ -50,7 +47,10 @@ const UserList = ({ initialUsers }: UserListProps) => {
 
     return (
       // inline-block + margin-right so Marquee can layout the items horizontally
-      <figure className="inline-block mr- relative h-full w-64 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05] dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]">
+      <figure
+        suppressHydrationWarning
+        className="inline-block mr- relative h-full w-64 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05] dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
+      >
         <div className="flex flex-row items-center gap-2">
           {user.image ? (
             <Image
@@ -86,7 +86,7 @@ const UserList = ({ initialUsers }: UserListProps) => {
   return (
     <div className="flex flex-col">
       <div className="flex text-center text-3xl font-semibold pb-4 w-full justify-center">
-        See what others say
+        Hear others gospels
       </div>
 
       {initialUsers.length === 0 ? (
@@ -95,15 +95,14 @@ const UserList = ({ initialUsers }: UserListProps) => {
         <>
           <div className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg">
             {/* Duplicate the row so marquee has enough content to loop */}
-            <Marquee pauseOnHover className="[--duration:20s]">
-              {[...firstRow, ...firstRow].map((user, idx) => (
-                // make keys unique even after duplication
+            <Marquee pauseOnHover className="[--duration:30s]">
+              {[...shuffledUsers, ...shuffledUsers].map((user, idx) => (
                 <ReviewCard key={`first-${user.id}-${idx}`} user={user} />
               ))}
             </Marquee>
 
-            <Marquee pauseOnHover reverse className="[--duration:20s]">
-              {[...secondRow, ...secondRow].map((user, idx) => (
+            <Marquee pauseOnHover reverse className="[--duration:30s]">
+              {[...shuffledUsers, ...shuffledUsers].map((user, idx) => (
                 <ReviewCard key={`second-${user.id}-${idx}`} user={user} />
               ))}
             </Marquee>
