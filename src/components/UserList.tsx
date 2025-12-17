@@ -95,13 +95,13 @@ const UserList = ({ initialUsers }: UserListProps) => {
         <>
           <div className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg">
             {/* Duplicate the row so marquee has enough content to loop */}
-            <Marquee pauseOnHover className="[--duration:30s]">
+            <Marquee pauseOnHover className="[--duration:40s]">
               {[...shuffledUsers, ...shuffledUsers].map((user, idx) => (
                 <ReviewCard key={`first-${user.id}-${idx}`} user={user} />
               ))}
             </Marquee>
 
-            <Marquee pauseOnHover reverse className="[--duration:30s]">
+            <Marquee pauseOnHover reverse className="[--duration:40s]">
               {[...shuffledUsers, ...shuffledUsers].map((user, idx) => (
                 <ReviewCard key={`second-${user.id}-${idx}`} user={user} />
               ))}
